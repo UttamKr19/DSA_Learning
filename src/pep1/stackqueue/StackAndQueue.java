@@ -1,6 +1,7 @@
 package pep1.stackqueue;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Stack;
 
 public class StackAndQueue {
@@ -452,6 +453,42 @@ public class StackAndQueue {
 		System.out.println(pre.peek());
 	}
 
+	static void processInPostStacks(Stack<String> in, Stack<String> po, Stack<Integer> val, char operator) {
+		String poV2 = po.pop();
+		String poV1 = po.pop();
+		po.push(poV2 + poV1 + operator);
+
+		String inV2 = in.pop();
+		String inV1 = in.pop();
+		in.push("(" + inV2 + operator + inV1 + ")");
+
+		int valV2 = val.pop();
+		int valV1 = val.pop();
+		int v = operation(valV2, valV1, operator);
+		val.push(v);
+
+	}
+
+	static void prefixEvaluationAndConversion(String str) {
+		Stack<Integer> val = new Stack<>();
+		Stack<String> po = new Stack<>();
+		Stack<String> in = new Stack<>();
+
+		for (int i = str.length() - 1; i >= 0; i--) {
+			char ch = str.charAt(i);
+			if (Character.isDigit(ch)) {
+				val.push(ch - '0');
+				po.push("" + ch);
+				in.push("" + ch);
+			} else {
+				processInPostStacks(in, po, val, ch);
+			}
+		}
+		System.out.println(val.peek());
+		System.out.println(in.peek());
+		System.out.println(po.peek());
+	}
+
 	static boolean doesAknowB(int a, int b, int[][] arr) {
 		if (arr[a][b] == 1) {
 			return true;
@@ -501,6 +538,66 @@ public class StackAndQueue {
 
 	}
 
+	static void mergeOverlappingIntervals(int[][] a) {
+		// merge overlapping intervals and print in increasing order of start time
+
+		// int[][] to Integer[][]
+		Integer arr[][] = new Integer[a.length][a[0].length];
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr[0].length; j++) {
+				arr[i][j] = a[i][j];
+			}
+		}
+
+		Arrays.sort(arr, new Comparator<Integer[]>() {
+			@Override
+			public int compare(final Integer[] entry1, final Integer[] entry2) {
+				Integer time1 = entry1[0];
+				Integer time2 = entry2[0];
+				return time1.compareTo(time2);
+			}
+		});
+
+		int i = 0;
+		int j = 0;
+		while (i < arr.length) {
+			int st = arr[i][0];
+			int end = arr[i][1];
+
+			while (i < arr.length && arr[i][0] <= end) {
+				end = Math.max(end, arr[i][1]);
+				i++;
+			}
+			System.out.println(st + " " + end);
+		}
+
+	}
+
+	static void smallestNumberFollowingPattern(String str) {
+		Stack<Integer> st = new Stack<>();
+		int n = str.length();
+		int counter = 1;
+		int[] arr = new int[n + 1];
+		Arrays.fill(arr, -1);
+		for (int i = 0; i < n; i++) {
+			if (str.charAt(i) == 'd') {
+				st.push(i);
+			} else {
+				arr[i] = counter++;
+				while (st.size() > 0) {
+					arr[st.pop()] = counter++;
+				}
+			}
+		}
+
+		arr[arr.length - 1] = counter++;
+		if (st.size() > 0) {
+			while (st.size() > 0) {
+				arr[st.pop()] = counter++;
+			}
+		}
+	}
+
 	public static void main(String[] args) {
 		String st[] = { "[(a + b) + {(c + d) * (e / f)}]", "[(a + b) + {(c + d) * (e / f)]}",
 				"[(a + b) + {(c + d) * (e / f)}", "([(a + b) + {(c + d) * (e / f)}]", "[]()" };
@@ -510,5 +607,7 @@ public class StackAndQueue {
 //		System.out.println(infixConversions("a*(b-c+d)/e"));
 
 		postfixEvaluationAndConversion("264*8/+3-");
+		int arr[][] = new int[2][3];
+
 	}
 }
