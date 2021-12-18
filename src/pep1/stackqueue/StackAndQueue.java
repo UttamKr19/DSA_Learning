@@ -1,5 +1,6 @@
 package pep1.stackqueue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Stack;
@@ -608,6 +609,9 @@ public class StackAndQueue {
 
 		postfixEvaluationAndConversion("264*8/+3-");
 		int arr[][] = new int[2][3];
+		ArrayList<Integer> al=new ArrayList<>();
+		al.add(2);
+		
 
 	}
 }
