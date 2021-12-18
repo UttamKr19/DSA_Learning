@@ -247,6 +247,44 @@ public class Recursion {
 
 	}
 
+	static String swap(String str,int i,int j) {
+		StringBuilder sb=new StringBuilder(str);
+		char a=sb.charAt(i);
+		char b=sb.charAt(j);
+		sb.setCharAt(i, b);
+		sb.setCharAt(j, a);
+		return sb.toString();
+	}
+	
+	// swapping a b method
+	static void printPermutation(String st,int l,int r) {
+		if(l==r) {
+			System.out.println(st);
+			return;
+		}
+		
+		for(int i=l;i<=r;i++) {
+			st=swap(st,l,i);
+			printPermutation(st, l+1, r);
+			st=swap(st,l,i);
+		}
+	}
+	
+	// ques ans method
+	static void printPermutation2(String st,String ans) {
+		if(st.length()==0) {
+			System.out.println(ans);
+			return;
+		}
+		
+		for(int i=0;i<st.length();i++) {
+			char ch=st.charAt(i); // ith char
+			String left=st.substring(0,i); //0 to i-1 chars
+			String right=st.substring(i+1); // i+1 to n chars
+			printPermutation2(left+right, ans+ch); // 
+		}
+	}
+	
 	static void printKeypadCombination(String str, String ans) {
 		String[] code = { ".;", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tu", "vwx", "yz" };
 		printKeypadCombo(str, ans, code);
