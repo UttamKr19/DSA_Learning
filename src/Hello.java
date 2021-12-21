@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 public class Hello {
 
 	public static void main(String[] args) {
@@ -25,10 +27,9 @@ public class Hello {
         
         
         */
+
+		LinkedList<Integer> ll=new LinkedList<>();
 		
-		System.out.println(Integer.MAX_VALUE);
-		StringBuilder sb=new StringBuilder(Integer.MAX_VALUE+"");
-		System.out.println(2.00000/(int)-2147483648);
 
 	}
 
