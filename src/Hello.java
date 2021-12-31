@@ -2,6 +2,9 @@ import java.util.LinkedList;
 
 public class Hello {
 
+	static int getMin(int a,int b,int c) {
+		return Math.min(a, Math.min(c, b));
+	}
 	public static void main(String[] args) {
 		/*
 		Scanner sc=new Scanner(System.in);
@@ -17,7 +20,8 @@ public class Hello {
         
         Scanner sc=new Scanner(System.in);
         int n=sc.nextInt();
-        for(int i=0;i<n;j++){
+        int arr[]=new int[n];
+        for(int i=0;i<n;i++){
             arr[i]=sc.nextInt();
         }
         
@@ -30,7 +34,7 @@ public class Hello {
 
 		LinkedList<Integer> ll=new LinkedList<>();
 		
-
+		 
 	}
 
 }
